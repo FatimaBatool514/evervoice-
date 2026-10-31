@@ -22,8 +22,17 @@ module.exports=async(req,res)=>{
  const buf=Buffer.from(await f.arrayBuffer()),mime=f.headers.get('content-type')||'audio/wav';
  const model=process.env.GEMINI_MODEL||'gemini-2.5-flash';
  const text=PROMPT+(mem.length?'\nEarlier topics (do not repeat): '+mem.join(' | '):'');
- const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':G},body:JSON.stringify({contents:[{parts:[{text},{inlineData:{mimeType:mime.split(';')[0],data:buf.toString('base64')}}]}],generationConfig:{responseMimeType:'application/json',temperature:0.2}})});
- const j=await r.json();
+ const body=JSON.stringify({contents:[{parts:[{text},{inlineData:{mimeType:mime.split(';')[0],data:buf.toString('base64')}}]}],generationConfig:{responseMimeType:'application/json',temperature:0.2}});
+ let r,j;
+ for(const m of [model,process.env.GEMINI_FALLBACK_MODEL].filter(Boolean)){
+  for(let i=0;i<3;i++){
+   r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':G},body});
+   j=await r.json();
+   if(r.status!==503&&r.status!==429)break;
+   await new Promise(w=>setTimeout(w,2000*(i+1)));
+  }
+  if(r.ok)break;
+ }
  if(!r.ok)return res.status(502).json({error:(j.error&&j.error.message)||'Gemini error'});
  const out=((j.candidates||[])[0]?.content?.parts||[]).map(p=>p.text||'').join('');
  try{res.status(200).json(JSON.parse(out.replace(/```json|```/g,'').trim()))}catch(e){res.status(502).json({error:'Could not read the AI answer'})}
