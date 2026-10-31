@@ -25,7 +25,7 @@ w(0,'RIFF');o.setUint32(4,36+n*2,true);w(8,'WAVEfmt ');o.setUint32(16,16,true);o
 for(let i=0;i<n;i++){const v=Math.max(-1,Math.min(1,d[i]));o.setInt16(44+i*2,v<0?v*32768:v*32767,true)}return new Blob([o],{type:'audio/wav'})}
 async function ai(id,path){S.msg=t().pr;render();
 try{const ss=(await sb.auth.getSession()).data.session,mem=S.stories.filter(s=>s.title).slice(0,5).map(s=>s.title);
-const r=await fetch('/api/process',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+ss.access_token},body:JSON.stringify({path,memory:mem})});const j=await r.json();if(!r.ok)throw new Error(j.error||'AI error');
+const r=await fetch('/api/process',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+ss.access_token},body:JSON.stringify({path,memory:mem})});const raw=await r.text();let j={};try{j=JSON.parse(raw)}catch(e){throw new Error('Server replied '+r.status+': '+raw.slice(0,100))}if(!r.ok)throw new Error(j.error||'AI error');
 const tags=[...new Set([].concat(j.people||[],j.places||[],j.years||[],j.themes||[]).map(String))].slice(0,8);
 const u=await sb.from('stories').update({title:j.title||null,transcript:j.transcript||null,translations:j.translations||{},tags,mood:j.mood||null}).eq('id',id);if(u.error)throw u.error;
 if(j.followup)S.fq=j.followup;S.msg=t().saved}catch(e){S.msg='AI: '+e.message}
