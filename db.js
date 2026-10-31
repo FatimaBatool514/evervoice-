@@ -4,9 +4,9 @@ let C=null;try{C=await(await fetch('/api/config')).json()}catch(e){}
 if(!C||!C.url||!C.key||!window.supabase){S.msg='Local mode: add SUPABASE_URL and SUPABASE_ANON_KEY in Vercel, then redeploy.';render();return}
 var EV=C;
 const sb=supabase.createClient(EV.url,EV.key);S.user=null;S.ready=false;S.err='';
-const A={en:{dm:'Try the demo',dn:'Shared demo account for testing. Please do not save private recordings here.',ud:'Sign in with demo account',fl:'Please enter your email and a password of 6 or more characters.',em:'Email',pw:'Password (6+ characters)',si:'Sign in',su:'Create family vault',so:'Sign out',ld:'Loading...',wel:'Welcome to EverVoice',sub:'Sign in to keep your family stories safe and private.',chk:'Check your email to confirm, then sign in.'},
-ur:{dm:'ڈیمو آزمائیں',dn:'یہ آزمائش کے لیے مشترکہ ڈیمو اکاؤنٹ ہے۔ براہ کرم یہاں نجی ریکارڈنگ محفوظ نہ کریں۔',ud:'ڈیمو اکاؤنٹ سے لاگ اِن کریں',fl:'براہ کرم ای میل اور کم از کم 6 حروف کا پاس ورڈ درج کریں۔',em:'ای میل',pw:'پاس ورڈ (کم از کم 6 حروف)',si:'لاگ اِن',su:'خاندانی البم بنائیں',so:'لاگ آؤٹ',ld:'لوڈ ہو رہا ہے...',wel:'ایور وائس میں خوش آمدید',sub:'اپنی خاندانی کہانیاں محفوظ رکھنے کے لیے لاگ اِن کریں۔',chk:'تصدیق کے لیے ای میل دیکھیں، پھر لاگ اِن کریں۔'},
-ar:{dm:'جرّب النسخة التجريبية',dn:'حساب تجريبي مشترك للاختبار. يرجى عدم حفظ تسجيلات خاصة هنا.',ud:'الدخول بالحساب التجريبي',fl:'يرجى إدخال البريد الإلكتروني وكلمة مرور من 6 أحرف أو أكثر.',em:'البريد الإلكتروني',pw:'كلمة المرور (6 أحرف فأكثر)',si:'تسجيل الدخول',su:'أنشئ خزنة العائلة',so:'تسجيل الخروج',ld:'جارٍ التحميل...',wel:'مرحبًا بك في إيفر فويس',sub:'سجّل الدخول لحفظ قصص عائلتك بخصوصية.',chk:'تحقق من بريدك للتأكيد، ثم سجّل الدخول.'}};
+const A={en:{pr:'The AI is listening to your story...',orig:'Original text',rv:'AI transcripts can contain mistakes. Please review them with your family.',tr:'Sample story. Record one to see the AI transcript.',dm:'Try the demo',dn:'Shared demo account for testing. Please do not save private recordings here.',ud:'Sign in with demo account',fl:'Please enter your email and a password of 6 or more characters.',em:'Email',pw:'Password (6+ characters)',si:'Sign in',su:'Create family vault',so:'Sign out',ld:'Loading...',wel:'Welcome to EverVoice',sub:'Sign in to keep your family stories safe and private.',chk:'Check your email to confirm, then sign in.'},
+ur:{pr:'اے آئی آپ کی کہانی سن رہا ہے...',orig:'اصل متن',rv:'اے آئی کے ٹرانسکرپٹ میں غلطیاں ہو سکتی ہیں۔ براہ کرم خاندان کے ساتھ جانچ لیں۔',tr:'نمونہ کہانی۔ اے آئی ٹرانسکرپٹ دیکھنے کے لیے ایک کہانی ریکارڈ کریں۔',dm:'ڈیمو آزمائیں',dn:'یہ آزمائش کے لیے مشترکہ ڈیمو اکاؤنٹ ہے۔ براہ کرم یہاں نجی ریکارڈنگ محفوظ نہ کریں۔',ud:'ڈیمو اکاؤنٹ سے لاگ اِن کریں',fl:'براہ کرم ای میل اور کم از کم 6 حروف کا پاس ورڈ درج کریں۔',em:'ای میل',pw:'پاس ورڈ (کم از کم 6 حروف)',si:'لاگ اِن',su:'خاندانی البم بنائیں',so:'لاگ آؤٹ',ld:'لوڈ ہو رہا ہے...',wel:'ایور وائس میں خوش آمدید',sub:'اپنی خاندانی کہانیاں محفوظ رکھنے کے لیے لاگ اِن کریں۔',chk:'تصدیق کے لیے ای میل دیکھیں، پھر لاگ اِن کریں۔'},
+ar:{pr:'الذكاء الاصطناعي يستمع إلى قصتك...',orig:'النص الأصلي',rv:'قد تحتوي النصوص المفرّغة بالذكاء الاصطناعي على أخطاء. يرجى مراجعتها مع عائلتك.',tr:'قصة نموذجية. سجّل قصة لترى النص المفرّغ.',dm:'جرّب النسخة التجريبية',dn:'حساب تجريبي مشترك للاختبار. يرجى عدم حفظ تسجيلات خاصة هنا.',ud:'الدخول بالحساب التجريبي',fl:'يرجى إدخال البريد الإلكتروني وكلمة مرور من 6 أحرف أو أكثر.',em:'البريد الإلكتروني',pw:'كلمة المرور (6 أحرف فأكثر)',si:'تسجيل الدخول',su:'أنشئ خزنة العائلة',so:'تسجيل الخروج',ld:'جارٍ التحميل...',wel:'مرحبًا بك في إيفر فويس',sub:'سجّل الدخول لحفظ قصص عائلتك بخصوصية.',chk:'تحقق من بريدك للتأكيد، ثم سجّل الدخول.'}};
 for(const l in A)Object.assign(T[l],A[l]);
 const DEMO={email:'demo@evervoice.app',password:'EverVoice-Demo-2026'};
 const baseViews=views,baseRender=render;
@@ -17,11 +17,24 @@ if($('si')){const go=async(up,cr)=>{const c=cr||{email:$('em').value.trim(),pass
 async function load(){const{data,error}=await sb.from('stories').select('*').order('created_at',{ascending:false});if(error){S.msg=error.message;S.stories=[{k:'demo'}];return}
 const paths=data.filter(r=>r.audio_path).map(r=>r.audio_path),m={};
 if(paths.length){const{data:u}=await sb.storage.from('audio').createSignedUrls(paths,3600);(u||[]).forEach(o=>m[o.path]=o.signedUrl)}
-S.stories=data.length?data.map(r=>({k:r.kind,title:r.title,url:m[r.audio_path]})):[{k:'demo'}]}
-async function save(blob,title,kind){const ty=(blob.type||'audio/webm').split(';')[0],p=S.user.id+'/'+Date.now()+'.'+(ty.includes('mp4')?'m4a':ty.includes('mpeg')?'mp3':ty.includes('ogg')?'ogg':'webm');
+S.stories=data.length?data.map(r=>({k:r.kind,title:r.title,url:m[r.audio_path],tx:r.transcript,tr:r.translations||{},tags:r.tags||[],mood:r.mood})):[{k:'demo'}]}
+async function toWav(b){const ctx=new(window.AudioContext||window.webkitAudioContext)();const buf=await ctx.decodeAudioData(await b.arrayBuffer());ctx.close();
+const n=Math.ceil(buf.duration*16000),oc=new OfflineAudioContext(1,n,16000),src=oc.createBufferSource();src.buffer=buf;src.connect(oc.destination);src.start();
+const d=(await oc.startRendering()).getChannelData(0),o=new DataView(new ArrayBuffer(44+n*2)),w=(p,s)=>[...s].forEach((c,i)=>o.setUint8(p+i,c.charCodeAt(0)));
+w(0,'RIFF');o.setUint32(4,36+n*2,true);w(8,'WAVEfmt ');o.setUint32(16,16,true);o.setUint16(20,1,true);o.setUint16(22,1,true);o.setUint32(24,16000,true);o.setUint32(28,32000,true);o.setUint16(32,2,true);o.setUint16(34,16,true);w(36,'data');o.setUint32(40,n*2,true);
+for(let i=0;i<n;i++){const v=Math.max(-1,Math.min(1,d[i]));o.setInt16(44+i*2,v<0?v*32768:v*32767,true)}return new Blob([o],{type:'audio/wav'})}
+async function ai(id,path){S.msg=t().pr;render();
+try{const ss=(await sb.auth.getSession()).data.session,mem=S.stories.filter(s=>s.title).slice(0,5).map(s=>s.title);
+const r=await fetch('/api/process',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+ss.access_token},body:JSON.stringify({path,memory:mem})});const j=await r.json();if(!r.ok)throw new Error(j.error||'AI error');
+const tags=[...new Set([].concat(j.people||[],j.places||[],j.years||[],j.themes||[]).map(String))].slice(0,8);
+const u=await sb.from('stories').update({title:j.title||null,transcript:j.transcript||null,translations:j.translations||{},tags,mood:j.mood||null}).eq('id',id);if(u.error)throw u.error;
+if(j.followup)S.fq=j.followup;S.msg=t().saved}catch(e){S.msg='AI: '+e.message}
+await load();render()}
+async function save(blob,title,kind){let ok=true;try{blob=await toWav(blob)}catch(e){ok=false}
+const ty=(blob.type||'audio/webm').split(';')[0],p=S.user.id+'/'+Date.now()+'.'+(ty.includes('wav')?'wav':ty.includes('mp4')?'m4a':ty.includes('mpeg')?'mp3':ty.includes('ogg')?'ogg':'webm');
 const up=await sb.storage.from('audio').upload(p,blob,{contentType:ty});if(up.error){S.msg=up.error.message;render();return}
-const ins=await sb.from('stories').insert({title,kind,audio_path:p,consent:true});if(ins.error){S.msg=ins.error.message;render();return}
-await load();S.msg=t().saved;render()}
+const ins=await sb.from('stories').insert({title,kind,audio_path:p,consent:true}).select('id').single();if(ins.error){S.msg=ins.error.message;render();return}
+await load();if(ok&&blob.size<18e6)await ai(ins.data.id,p);else{S.msg=t().saved;render()}}
 toggle=async function(){if(S.rec){mr.stop();return}
 try{const s=await navigator.mediaDevices.getUserMedia({audio:true}),ch=[];mr=new MediaRecorder(s);mr.ondataavailable=e=>ch.push(e.data);
 mr.onstop=()=>{s.getTracks().forEach(k=>k.stop());S.rec=false;const q=t().q[S.qi];S.qi=(S.qi+1)%3;save(new Blob(ch,{type:mr.mimeType}),q,'real')};mr.start();S.rec=true;S.msg='';render()}catch(e){S.msg=t().noMic;render()}};
