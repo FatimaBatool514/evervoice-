@@ -1,5 +1,5 @@
 // EverVoice artwork: logo, hero banner, story scenes (no images to download, no AI quota needed)
-const wordmark=(px=28)=>`<span class="wm" style="display:inline-flex;flex-direction:column;line-height:1;font-weight:800;letter-spacing:-.5px;font-size:${px}px"><span><b style="color:#C8643C">Ever</b><b style="color:#1F6F6B">Voice</b></span><svg style="display:block;width:100%;height:.3em;margin-top:.14em" viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true"><path d="M1 4q6.2-6 12.4 0t12.4 0 12.4 0 12.4 0 12.4 0 12.4 0 12.4 0 12.4 0" fill="none" stroke="#E8A838" stroke-width="2.4" stroke-linecap="round"/></svg></span>`;
+const wordmark=(px=28)=>`<span class="wm" style="display:inline-flex;flex-direction:column;line-height:1;font-weight:800;letter-spacing:-.5px;font-size:${px}px"><span><b style="color:#C8643C">Ever</b><b style="color:#1F6F6B">Voice</b></span></span>`;
 const logo=s=>wordmark((s||40)*0.7);
 const SC={sea:'<path d="M0 220q60-30 120 0t120 0t110 0v100H0z" fill="#1F6F6B"/><path d="M0 250q80-24 160 0t190-6v76H0z" fill="#17605C"/><path d="M90 205l70-40 70 40z" fill="#3B2A20"/><path d="M160 165V70l50 85z" fill="#F6E7D0"/>',
 desert:'<path d="M0 240q90-80 180-10t170-20v110H0z" fill="#E8A838"/><path d="M0 280q120-50 350 0v40H0z" fill="#C8643C"/>',
